@@ -26,7 +26,7 @@ const findMinMax = (valueArr) => {
 function add() {
   const clone = vecInputReference.clone();
 
-  resetClone(clone)
+  resetClone(clone);
   $("#inputs").append(clone);
   $("#add").appendTo("#inputs");
 }
@@ -39,11 +39,16 @@ function resetClone(clone) {
 }
 
 function onChange(el) {
-  const checked = $(el).prop('checked')
-  $(el.parentElement).children().eq(2).text(checked ? 'X' : 'Theta Degrees')
-  $(el.parentElement).children().eq(4).text(checked ? 'Y' : 'Magnitude')
+  const checked = $(el).prop("checked");
+  $(el.parentElement)
+    .children()
+    .eq(2)
+    .text(checked ? "X" : "Theta Degrees");
+  $(el.parentElement)
+    .children()
+    .eq(4)
+    .text(checked ? "Y" : "Magnitude");
   render();
-
 }
 
 function remove(btn_element) {
@@ -78,7 +83,7 @@ function onLoad() {
   resizeCanvas();
   $(window).on("resize", resizeCanvas);
 
-  resetClone($('#vectors-1'))
+  resetClone($("#vectors-1"));
 
   render();
 
@@ -167,10 +172,16 @@ function render() {
     });
 
     // Start drawing from the previous coordinates
-    ctx.beginPath();
     const prev = toScreenCoords(pv);
-    ctx.moveTo(prev.x, prev.y);
+    ctx.beginPath();
+    ctx.arc(prev.x, prev.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = "black";
+    ctx.fill();
 
+
+    ctx.beginPath();
+    ctx.moveTo(prev.x, prev.y);
+    
     // Draw a line to the new coordinates
     ctx.lineTo(screenCoords.x, screenCoords.y);
 
@@ -185,17 +196,25 @@ function render() {
     pv.y += vector.y;
   }
 
-  $('#x').text(pv.x + '')
-  $('#y').text(pv.y + '')
-  $('#theta').text(Math.atan2(pv.y, pv.x).toFixed(2) + '')
-  $('#mag').text(Math.sqrt(pv.x*pv.x+pv.y*pv.y).toFixed(2) + '')
+  ctx.beginPath();
+  ctx.arc(toScreenCoords(pv).x, toScreenCoords(pv).y, 4, 0, Math.PI * 2);
+  ctx.fillStyle = "black";
+  ctx.fill();
 
-  if(all_component_values.length == 2 && pv.x == all_component_values[0].x && pv.y == all_component_values[0].y) {
+  $("#x").text(pv.x + "");
+  $("#y").text(pv.y + "");
+  $("#theta").text(Math.atan2(pv.y, pv.x).toFixed(2) + "");
+  $("#mag").text(Math.sqrt(pv.x * pv.x + pv.y * pv.y).toFixed(2) + "");
+
+  if (
+    all_component_values.length == 2 &&
+    pv.x == all_component_values[0].x &&
+    pv.y == all_component_values[0].y
+  ) {
     return;
   }
 
   if (all_component_values.length > 1) {
-    
     ctx.beginPath();
     ctx.moveTo(canvas.width / 2, canvas.height / 2);
     const sc = toScreenCoords(pv);
