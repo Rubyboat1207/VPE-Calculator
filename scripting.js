@@ -53,7 +53,7 @@ function remove(btn_element) {
       child.setAttribute("id", i);
     }
   }
-  btn_element.parentElement.remove();
+  btn_element.parentElement.parentElement.remove();
 
   render();
 }
