@@ -201,9 +201,9 @@ function render() {
   ctx.fillStyle = "black";
   ctx.fill();
 
-  $("#x").text(pv.x + "");
-  $("#y").text(pv.y + "");
-  $("#theta").text(Math.atan2(pv.y, pv.x).toFixed(2) + "");
+  $("#x").text(Math.round(pv.x * 100) / 100 + "");
+  $("#y").text(Math.round(pv.y * 100) / 100 + "");
+  $("#theta").text(Math.atan2(pv.y, pv.x).toFixed(2) + " radians or " + Math.round(Math.atan2(pv.y, pv.x) * (180/Math.PI) * 100) / 100 + " degrees");
   $("#mag").text(Math.sqrt(pv.x * pv.x + pv.y * pv.y).toFixed(2) + "");
 
   if (
