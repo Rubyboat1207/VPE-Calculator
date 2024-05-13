@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.square-wrapper {
+    width: 100%; /* Take the full width of the parent, which is w-4/12 in your case */
+    position: relative;
+  }
+  
+  .square-wrapper::before {
+    content: '';
+    display: block;
+    padding-top: 100%; /* This maintains the 1:1 aspect ratio */
+  }
+  
+  .canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  canvas {
+    width: 100%;  /* Adjusts to the size of its container */
+    height: 100%; /* Adjusts to the size of its container */
+  }
+  
